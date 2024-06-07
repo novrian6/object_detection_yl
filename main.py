@@ -6,7 +6,7 @@ import os
 
 def app():
     st.header('Object Detection Web App')
-    st.subheader('Powered by YOLOv8')
+    st.subheader('by Nova Novriansyah')
     st.write('Welcome!')
 
     # Load YOLO model
@@ -21,13 +21,17 @@ def app():
         submit_button = st.form_submit_button(label='Submit')
     
     if uploaded_file is not None and submit_button:
-        # Use a temporary file to save the uploaded video
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
-            temp_file.write(uploaded_file.read())
-            temp_filepath = temp_file.name
+        # Create 'video' folder if it doesn't exist
+        if not os.path.exists('video'):
+            os.makedirs('video')
+        
+        # Save uploaded file to 'video' folder
+        video_filepath = os.path.join('video', uploaded_file.name)
+        with open(video_filepath, 'wb') as f:
+            f.write(uploaded_file.read())
         
         # Open video file
-        video_stream = cv2.VideoCapture(temp_filepath)
+        video_stream = cv2.VideoCapture(video_filepath)
         if not video_stream.isOpened():
             st.error("Error: Could not open video file.")
             return
@@ -39,7 +43,7 @@ def app():
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Use mp4v for better compatibility
 
         # Output video file
-        output_filepath = temp_filepath.replace('.mp4', '_output.mp4')
+        output_filepath = video_filepath.replace('.mp4', '_output.mp4')
         out_video = cv2.VideoWriter(output_filepath, fourcc, fps, (width, height))
 
         # Process video
