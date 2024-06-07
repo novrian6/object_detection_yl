@@ -1,8 +1,6 @@
-# Extras --------------------------------------
-ipython  # interactive notebook
-psutil  # system utilization
-thop>=0.1.1  # FLOPs computation
+pandas
+plotly
 streamlit
-# albumentations>=1.0.3
-# pycocotools>=2.0  # COCO mAP
-# roboflow
+yfinance
+pandas-datareader
+prophet
