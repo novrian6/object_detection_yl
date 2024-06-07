@@ -3,8 +3,13 @@ import streamlit as st
 from ultralytics import YOLO
 import tempfile
 import os
+import mediapipe as mp
 
 def app():
+    print(st.__version__)
+    print(cv2.__version__)
+    print(mp.__version__)
+
     st.header('Object Detection Web App')
     st.subheader('by Nova Novriansyah')
     st.write('Welcome!')
